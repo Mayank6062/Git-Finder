@@ -1,15 +1,5 @@
-
-
-
 import { fetchData } from "./api.js ";
 import {numberTokilo} from "./module.js";
-
-/**
- * Add eventlist on multiple elements
- * @param {NodeList} $elements NodeList
- * @param {String} eventType String
- * @param {Function} callback Function
- */
 
 const addEventOnElements = function($elements, eventType, callback) {
     for(const $item of $elements) {
@@ -17,24 +7,20 @@ const addEventOnElements = function($elements, eventType, callback) {
     }
 }
 
-/**
- * Header scroll state
- */
-const /**{NodeElement} */ $header = document.querySelector("[data-header]");
+//Header scroll state
+const $header = document.querySelector("[data-header]");
 
 window.addEventListener("scroll", function () {
     $header.classList[this.window.scrollY > 50 ? "add" : "remove"]("active");
 });
 
-/**
- * search toggle
- */
 
-const /**{NodeElement} */ $searchToggler = document.querySelector("[data-search-toggler]");
+// search toggle
+const  $searchToggler = document.querySelector("[data-search-toggler]");
 
-const /**{NodeBlement} */ $searchField = document.querySelector("[data-search-field]");
+const  $searchField = document.querySelector("[data-search-field]");
 
-let /**{Boolean} */ isExpanded = false;
+let  isExpanded = false;
 
 $searchToggler.addEventListener("click", function () {
     $header.classList.toggle("search-active");
@@ -43,15 +29,13 @@ $searchToggler.addEventListener("click", function () {
     $searchField.focus();
 });
 
-/*
-* Tab navigation
-*/
-const /**{NodeList} */ $tabBtns = document.querySelectorAll("[data-tab-btn]");
+//Tab navigation
+const  $tabBtns = document.querySelectorAll("[data-tab-btn]");
 
-const /*{NodeList}*/ $tabPanels = document.querySelectorAll("[data-tab-panel]");
+const  $tabPanels = document.querySelectorAll("[data-tab-panel]");
 
-let /*{NodeElement}*/ [$lastActiveTabBtn] = $tabBtns;
-let /*{NodeElement}*/ [$lastActiveTabPanel] = $tabPanels;
+let  [$lastActiveTabBtn] = $tabBtns;
+let  [$lastActiveTabPanel] = $tabPanels;
 
 addEventOnElements($tabBtns, "click", function () {
     $lastActiveTabBtn.setAttribute("aria-selected", "false");
@@ -64,13 +48,11 @@ addEventOnElements($tabBtns, "click", function () {
     $lastActiveTabPanel = $currentTabPanel;
 });
 
-/* 
-* keyboard accessibility for tab buttons 
-*/
-
+ 
+// keyboard accessibility for tab buttons 
 addEventOnElements($tabBtns, "keydown", function(e) {
-    const /*{NodeElement}*/  $nextElement = this.nextElementSibling;
-    const /*{NodeElement}*/  $previousElement = this.previousElementSibling;
+    const  $nextElement = this.nextElementSibling;
+    const  $previousElement = this.previousElementSibling;
 
     if(e.key === "ArrowRight" && $nextElement) {
         this.setAttribute("tabindex", "-1");
@@ -84,14 +66,13 @@ addEventOnElements($tabBtns, "keydown", function(e) {
 });
 
 /* Work with API */
-
 /* Search */
 
-const /*{NodeElement}*/ $searchSubmit = document.querySelector("[data-search-submit]");
+const  $searchSubmit = document.querySelector("[data-search-submit]");
 
-let /* {String} */ apiUrl = "https://api.github.com/users/addyosmani";
+let  apiUrl = "https://api.github.com/users/addyosmani";
 
-let /* {String} */repoUrl, followerUrl, followingUrl = "";
+let repoUrl, followerUrl, followingUrl = "";
 
 const searchUser = function () {
     if (!$searchField.value) return;
@@ -109,11 +90,11 @@ $searchField.addEventListener("Keydown", e => {
 });
 
 /* PROFILE */
-const /*{NodeElement}*/ $profileCard = document.querySelector("[data-profile-card]");
+const $profileCard = document.querySelector("[data-profile-card]");
 
-const /*{NodeElement}*/ $repoPanel = document.querySelector("[data-repo-panel]");
+const  $repoPanel = document.querySelector("[data-repo-panel]");
 
-const /*{NodeElement}*/ $error = document.querySelector("[data-error]");
+const  $error = document.querySelector("[data-error]");
 
 window.updateProfile = function (profileUrl) {
 
@@ -282,8 +263,7 @@ fetchData(profileUrl, data => {
 updateProfile( apiUrl );
 
 /* Repository */
-
-let /*{Array}*/ forkedRepos = [];
+let forkedRepos = [];
 
 const updateRepository = function () {
 
@@ -292,7 +272,7 @@ const updateRepository = function () {
         $repoPanel.innerHTML = `<h2 class="sr-only">Repositories</h2>`;
         forkedRepos = data.filter(item => /*{Boolean}*/ item.fork );
 
-        const /*{Array}*/ repositories = data.filter(i => !i.fork);
+        const repositories = data.filter(i => !i.fork);
 
         if(repositories.length) {
 
@@ -308,7 +288,7 @@ const updateRepository = function () {
                     forks_count,
                 } = repo ;
 
-                const /*{NodeElement}*/ $repoCard = document.createElement
+                const  $repoCard = document.createElement
                 ("article");
                 $repoCard.classList.add("card", "repo-card");
 
@@ -376,9 +356,9 @@ const updateRepository = function () {
 
 /*Forked Repository*/
 
-const /*{NodeElement}*/ $forkePanel = document.querySelector("[data-fork-panel]");
+const  $forkePanel = document.querySelector("[data-fork-panel]");
 
-const /*{NodeElement}*/ $forkTabBtn = document.querySelector("[data-forked-tab-btn]");
+const $forkTabBtn = document.querySelector("[data-forked-tab-btn]");
 
 const updateForkRepo = function () {
 
@@ -398,7 +378,7 @@ const updateForkRepo = function () {
                     forks_count,
                 } = repo ;
 
-                const /*{NodeElement}*/ $forkCard = document.createElement
+                const  $forkCard = document.createElement
                 ("article");
                 $forkCard.classList.add("card", "repo-card");
 
@@ -465,9 +445,9 @@ $forkTabBtn.addEventListener("click", updateForkRepo);
 
 
 /*FOLLOWER*/
-const /*{NodeElement}*/ $followerTabBtn = document.querySelector("[data-follower-tab-btn]");
+const  $followerTabBtn = document.querySelector("[data-follower-tab-btn]");
 
-const /*{NodeElement}*/ $followerPanel = document.querySelector("[data-follower-panel]");
+const  $followerPanel = document.querySelector("[data-follower-panel]");
 
 const updateFollower = function () {
 
@@ -493,7 +473,7 @@ const updateFollower = function () {
                     url
                 } = item;
 
-                const /*{NodeElement}*/ $followerCard = document.createElement("article");
+                const  $followerCard = document.createElement("article");
                 $followerCard.classList.add("card", "follower-card");
 
                 $followerCard.innerHTML = `
@@ -530,9 +510,9 @@ $followerTabBtn.addEventListener("click",updateFollower);
 
 /*Following*/
 
-const  /*{NodeElement}*/ $followingTabBtn = document.querySelector("[data-following-tab-btn]");
+const   $followingTabBtn = document.querySelector("[data-following-tab-btn]");
 
-const  /*{NodeElement}*/ $followingPanel = document.querySelector("[ data-following-panel]");
+const   $followingPanel = document.querySelector("[ data-following-panel]");
 
 const updateFollowing = function () {
     $followingPanel.innerHTML = ` 
@@ -556,7 +536,7 @@ const updateFollowing = function () {
                     url
                 } = item;
 
-                const /*{NodeElement}*/ $followingCard = document.createElement("article");
+                const  $followingCard = document.createElement("article");
                 $followingCard.classList.add("card", "follower-card");
 
                 $followingCard.innerHTML = `
