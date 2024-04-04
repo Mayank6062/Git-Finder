@@ -1,7 +1,5 @@
-
-
-const /**{NodeElement} */ $HTML = document.documentElement;
-const /**{Boolean} */ isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+const  $HTML = document.documentElement;
+const  isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 if (sessionStorage.getItem("theme")) {
     $HTML.dataset.theme = sessionStorage.getItem("theme");
@@ -9,7 +7,7 @@ if (sessionStorage.getItem("theme")) {
     $HTML.dataset.theme = isDark ? "dark" : "light";
 }
 
-let /**{Boolean} */ isPressed = false;
+let  isPressed = false;
 
 const changeTheme = function () {
     isPressed = isPressed ? false : true;
@@ -20,7 +18,7 @@ const changeTheme = function () {
 }
 
 window.addEventListener("load", function () {
-    const /**{NodeElement} */ $themeBtn = document.querySelector("[dark-theme-btn]");
+    const  $themeBtn = document.querySelector("[dark-theme-btn]");
 
     $themeBtn.addEventListener("click", changeTheme);
 })
