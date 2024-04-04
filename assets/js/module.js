@@ -1,9 +1,6 @@
-
-
-
 export const numberTokilo = function (number) {
 
-    const /*{String}*/ numStr = String(number);
+    const  numStr = String(number);
     if(numStr.length <= 3 ) {
         return numStr;
     } else if (numStr.length >= 4 && numStr.length <= 5) {
